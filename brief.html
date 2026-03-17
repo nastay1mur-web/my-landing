@@ -733,20 +733,20 @@
     document.getElementById('next-4').disabled = !data.audience;
   });
 
+  // Что клиент хочет сделать (его язык) — объявляем глобально, используется и в calcEstimate и в showResult
+  const goalLabels = {
+    leads:   'Собирать контакты',
+    price:   'Показывать цену / срок',
+    consult: 'Консультировать автоматически',
+    segment: 'Сегментировать аудиторию',
+    package: 'Упаковать продукт / услугу',
+    other:   'Нестандартная задача'
+  };
+
   // ── ESTIMATE LOGIC ──
   function calcEstimate() {
     const type = data.type;
     const budget = data.budget;
-
-    // Что клиент хочет сделать (его язык)
-    const goalLabels = {
-      leads:   'Собирать контакты',
-      price:   'Показывать цену / срок',
-      consult: 'Консультировать автоматически',
-      segment: 'Сегментировать аудиторию',
-      package: 'Упаковать продукт / услугу',
-      other:   'Нестандартная задача'
-    };
 
     // Что мы рекомендуем сделать (инструмент)
     const typeLabels = {
