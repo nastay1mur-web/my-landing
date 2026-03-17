@@ -834,6 +834,25 @@
     result.style.animation = 'step-in 0.4s ease';
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Notify via Telegram bot (silent, no backend token exposure)
+    const leadsMapN = { telegram: 'Telegram', email: 'Email', crm: 'CRM / таблица', unknown: 'Не знаю' };
+    const budgetMapN = { low: 'до 30 000 ₽', mid: '30 000–70 000 ₽', high: '70 000–150 000 ₽', top: 'от 150 000 ₽' };
+    const deadlineMapN = { urgent: 'Срочно (1–2 нед)', month: 'В течение месяца', two: '1–2 месяца', flex: 'Гибко' };
+    fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: data.name || '—',
+        contact: data.contact || '—',
+        goal: data.goal || '—',
+        niche: data.niche || '—',
+        audience: data.audience || '—',
+        leads: leadsMapN[data.leads] || data.leads || '—',
+        budget: budgetMapN[data.budget] || data.budget || '—',
+        deadline: deadlineMapN[data.deadline] || data.deadline || '—',
+      }),
+    }).catch(() => {}); // silent fail — not critical
   }
 
   // Init dots
