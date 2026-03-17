@@ -167,6 +167,19 @@
     .btn-secondary:hover { border-color: var(--indigo); background: var(--indigo-dim); transform: translateY(-2px); }
     .btn-cyan { background: var(--cyan); color: var(--bg-0); border: none; font-weight: 600; }
     .btn-cyan:hover { box-shadow: 0 0 30px rgba(0,212,255,0.4); transform: translateY(-2px); }
+    .btn-gradient {
+      background: linear-gradient(135deg, var(--indigo) 0%, var(--cyan) 100%);
+      background-size: 200% auto;
+      color: #fff; border: none; font-weight: 600;
+      box-shadow: 0 0 28px rgba(99,102,241,0.4), 0 0 60px rgba(0,212,255,0.15);
+      transition: all 0.35s ease;
+    }
+    .btn-gradient:hover {
+      background-position: right center;
+      box-shadow: 0 0 48px rgba(99,102,241,0.6), 0 0 80px rgba(0,212,255,0.3);
+      transform: translateY(-3px);
+      filter: brightness(1.08);
+    }
 
     /* ===== GLASS CARD ===== */
     .glass-card {
@@ -544,7 +557,7 @@
     /* ===== CONTACT ===== */
     #contact { background: var(--bg-0); }
     .contact-manifest { text-align: center; font-size: 1rem; color: var(--text-1); max-width: 540px; margin: 0 auto 56px; line-height: 1.7; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 860px; margin: 0 auto; }
     .contact-form { display: flex; flex-direction: column; gap: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group label { font-size: 0.8rem; color: var(--text-2); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -927,7 +940,7 @@
         Превращаю идеи в рабочие цифровые продукты. Сайты которые продают, приложения которые удерживают, AI-агенты которые работают за вас 24/7.
       </p>
       <div class="hero-ctas">
-        <a href="brief.html" class="btn btn-primary">Заполнить бриф →</a>
+        <a href="brief.html" class="btn btn-gradient">Заполнить бриф →</a>
         <a href="#work" class="btn btn-secondary">Смотреть работы ↓</a>
       </div>
       <div class="hero-stats">
@@ -1563,61 +1576,29 @@
     <p class="contact-manifest reveal">
       Три услуги — одна система. Сайт привлекает → приложение удерживает → AI-агент обрабатывает. Если есть хотя бы одна задача — начнём с неё.
     </p>
-    <div class="contact-grid">
-      <div class="reveal">
-        <div id="contact-form-wrap">
-          <form class="contact-form" id="contact-form" novalidate>
-            <div class="form-group">
-              <label for="name">Имя *</label>
-              <input class="form-input" type="text" id="name" name="name" required placeholder="Ваше имя">
-            </div>
-            <div class="form-group">
-              <label for="contact-val">Email или Telegram *</label>
-              <input class="form-input" type="text" id="contact-val" name="contact" required placeholder="email@example.com или @username">
-            </div>
-            <div class="form-group">
-              <label for="message">Расскажите о задаче</label>
-              <textarea class="form-textarea" id="message" name="message" placeholder="Расскажите о своём проекте..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary form-submit">Отправить сообщение →</button>
-            <p class="form-note">* Отвечаю в течение 24 часов</p>
-          </form>
-        </div>
-        <div class="form-success" id="form-success">
-          <div class="success-icon">
-            <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="28" cy="28" r="28" fill="rgba(99,102,241,0.15)"/>
-              <path d="M18 28l8 8 14-16" stroke="#6366F1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h3 style="margin-bottom:8px; font-family:'Space Grotesk',sans-serif;">Сообщение отправлено!</h3>
-          <p style="color:var(--text-1); font-size:0.9rem;">Отвечу в течение 24 часов.</p>
+    <div class="contact-grid reveal">
+      <div class="contact-block" style="background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(0,212,255,0.08)); border-color: rgba(99,102,241,0.3);">
+        <h4 style="color: var(--text-0);">Заполнить бриф</h4>
+        <p style="color:var(--text-1); font-size:0.875rem; margin-bottom:16px;">Ответь на 7 вопросов — получи предварительную оценку проекта за 2 минуты</p>
+        <a href="brief.html" class="btn btn-gradient" style="width:100%; justify-content:center; padding:12px 20px; font-size:0.9rem;">Начать бриф →</a>
+      </div>
+      <div class="contact-block">
+        <h4>Telegram</h4>
+        <p class="contact-value">@username</p>
+        <a href="https://t.me/username" class="btn btn-cyan" style="padding:10px 20px; font-size:0.875rem;">Написать в Telegram →</a>
+        <div class="status-badge">
+          <div class="status-dot"></div>
+          <span>Открыт для проектов · Следующий слот: март 2026</span>
         </div>
       </div>
-      <div class="contact-info reveal reveal-delay-2">
-        <div class="contact-block" style="background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(0,212,255,0.08)); border-color: rgba(99,102,241,0.3);">
-          <h4 style="color: var(--text-0);">Заполнить бриф</h4>
-          <p style="color:var(--text-1); font-size:0.875rem; margin-bottom:14px;">Ответь на 7 вопросов — получи предварительную оценку проекта за 2 минуты</p>
-          <a href="brief.html" class="btn btn-primary" style="width:100%; justify-content:center; padding:11px 20px; font-size:0.875rem;">Начать бриф →</a>
-        </div>
-        <div class="contact-block">
-          <h4>Telegram</h4>
-          <p class="contact-value">@username</p>
-          <a href="https://t.me/username" class="btn btn-cyan" style="padding:10px 20px; font-size:0.875rem;">Написать в Telegram →</a>
-          <div class="status-badge">
-            <div class="status-dot"></div>
-            <span>Открыт для проектов · Следующий слот: март 2026</span>
-          </div>
-        </div>
-        <div class="contact-block">
-          <h4>Забронировать звонок</h4>
-          <p style="color:var(--text-1); font-size:0.875rem; margin-bottom:14px;">30-минутный бриф — бесплатно, без обязательств</p>
-          <a href="#" class="btn btn-secondary" style="padding:10px 20px; font-size:0.875rem;">Выбрать время → (Calendly)</a>
-        </div>
-        <div class="contact-block">
-          <h4>Email</h4>
-          <p class="contact-value">hello@alexdev.ru</p>
-        </div>
+      <div class="contact-block">
+        <h4>Забронировать звонок</h4>
+        <p style="color:var(--text-1); font-size:0.875rem; margin-bottom:14px;">30-минутный бриф — бесплатно, без обязательств</p>
+        <a href="#" class="btn btn-secondary" style="padding:10px 20px; font-size:0.875rem;">Выбрать время → (Calendly)</a>
+      </div>
+      <div class="contact-block">
+        <h4>Email</h4>
+        <p class="contact-value">hello@alexdev.ru</p>
       </div>
     </div>
   </div>
