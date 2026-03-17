@@ -354,41 +354,57 @@
         </div>
       </div>
 
-      <!-- STEP 2: Тип проекта -->
+      <!-- STEP 2: Задача клиента -->
       <div class="step" id="step-2">
-        <div class="step-label">// 02 — Проект</div>
-        <h2 class="step-question">Что хочешь создать?</h2>
-        <p class="step-hint">Выбери то, что ближе всего к твоей задаче.</p>
+        <div class="step-label">// 02 — Задача</div>
+        <h2 class="step-question">Какая задача стоит перед тобой?</h2>
+        <p class="step-hint">Выбери главное — я сам подберу подходящий инструмент.</p>
         <div class="cards-grid" id="cards-type">
-          <button class="answer-card" data-value="quiz" onclick="selectCard(this,'type')">
+          <button class="answer-card" data-value="leads" onclick="selectCard(this,'type')">
+            <span class="card-icon">🧲</span>
+            <div class="card-text">
+              <div class="card-title">Собирать контакты</div>
+              <div class="card-sub">Хочу получать лиды с сайта или из соцсетей — имейлы, телефоны, заявки</div>
+            </div>
+            <div class="card-check"></div>
+          </button>
+          <button class="answer-card" data-value="price" onclick="selectCard(this,'type')">
+            <span class="card-icon">💰</span>
+            <div class="card-text">
+              <div class="card-title">Показывать цену / срок</div>
+              <div class="card-sub">Клиент вводит параметры и сразу видит стоимость — без ожидания менеджера</div>
+            </div>
+            <div class="card-check"></div>
+          </button>
+          <button class="answer-card" data-value="consult" onclick="selectCard(this,'type')">
+            <span class="card-icon">🤖</span>
+            <div class="card-text">
+              <div class="card-title">Консультировать автоматически</div>
+              <div class="card-sub">Клиент получает рекомендацию или план действий без моего участия — 24/7</div>
+            </div>
+            <div class="card-check"></div>
+          </button>
+          <button class="answer-card" data-value="segment" onclick="selectCard(this,'type')">
             <span class="card-icon">🎯</span>
             <div class="card-text">
-              <div class="card-title">Квиз</div>
-              <div class="card-sub">Клиент отвечает на вопросы → получает результат или рекомендацию</div>
+              <div class="card-title">Сегментировать аудиторию</div>
+              <div class="card-sub">Разным клиентам — разные предложения. Хочу разделить их по типу, запросу, ситуации</div>
             </div>
             <div class="card-check"></div>
           </button>
-          <button class="answer-card" data-value="calculator" onclick="selectCard(this,'type')">
-            <span class="card-icon">🔢</span>
+          <button class="answer-card" data-value="package" onclick="selectCard(this,'type')">
+            <span class="card-icon">📦</span>
             <div class="card-text">
-              <div class="card-title">Калькулятор</div>
-              <div class="card-sub">Вводит параметры → видит число или результат (цена, срок, вес)</div>
-            </div>
-            <div class="card-check"></div>
-          </button>
-          <button class="answer-card" data-value="site" onclick="selectCard(this,'type')">
-            <span class="card-icon">🌐</span>
-            <div class="card-text">
-              <div class="card-title">Сайт / лендинг</div>
-              <div class="card-sub">Страница для привлечения клиентов, продажи курса, услуги</div>
+              <div class="card-title">Упаковать продукт / услугу</div>
+              <div class="card-sub">Нужна страница, которая продаёт — курс, консультация, услуга, знания</div>
             </div>
             <div class="card-check"></div>
           </button>
           <button class="answer-card" data-value="other" onclick="selectCard(this,'type')">
             <span class="card-icon">✨</span>
             <div class="card-text">
-              <div class="card-title">Что-то другое</div>
-              <div class="card-sub">Расскажу на созвоне — есть нестандартная идея</div>
+              <div class="card-title">Другая задача</div>
+              <div class="card-sub">Расскажу на созвоне — у меня нестандартная ситуация</div>
             </div>
             <div class="card-check"></div>
           </button>
@@ -581,7 +597,7 @@
         <div class="result-estimate">
           <div class="estimate-label">// Предварительная оценка</div>
           <div class="estimate-row">
-            <span class="estimate-key">Тип проекта</span>
+            <span class="estimate-key">Рекомендуем</span>
             <span class="estimate-val" id="res-type">—</span>
           </div>
           <div class="estimate-row">
@@ -722,25 +738,42 @@
     const type = data.type;
     const budget = data.budget;
 
+    // Что клиент хочет сделать (его язык)
+    const goalLabels = {
+      leads:   'Собирать контакты',
+      price:   'Показывать цену / срок',
+      consult: 'Консультировать автоматически',
+      segment: 'Сегментировать аудиторию',
+      package: 'Упаковать продукт / услугу',
+      other:   'Нестандартная задача'
+    };
+
+    // Что мы рекомендуем сделать (инструмент)
     const typeLabels = {
-      quiz: 'Квиз с автоматизацией',
-      calculator: 'Калькулятор',
-      site: 'Сайт / лендинг',
-      other: 'Обсудим на созвоне'
+      leads:   'Квиз с захватом контакта',
+      price:   'Калькулятор стоимости / срока',
+      consult: 'Квиз-советчик + Telegram-бот',
+      segment: 'Квиз с сегментацией',
+      package: 'Лендинг с сильным оффером',
+      other:   'Обсудим на созвоне'
     };
 
     const prices = {
-      quiz:       { low: 'от 30 000 ₽', mid: '40 000–70 000 ₽', high: '70 000–120 000 ₽', discuss: 'обсудим', default: 'от 40 000 ₽' },
-      calculator: { low: 'от 25 000 ₽', mid: '35 000–60 000 ₽', high: '60 000–100 000 ₽', discuss: 'обсудим', default: 'от 35 000 ₽' },
-      site:       { low: 'от 25 000 ₽', mid: '40 000–70 000 ₽', high: '70 000–130 000 ₽', discuss: 'обсудим', default: 'от 40 000 ₽' },
-      other:      { default: 'обсудим на созвоне' }
+      leads:   { low: 'от 25 000 ₽', mid: '35 000–60 000 ₽', high: '60 000–100 000 ₽', discuss: 'обсудим', default: 'от 35 000 ₽' },
+      price:   { low: 'от 20 000 ₽', mid: '30 000–55 000 ₽', high: '55 000–90 000 ₽',  discuss: 'обсудим', default: 'от 30 000 ₽' },
+      consult: { low: 'от 35 000 ₽', mid: '45 000–75 000 ₽', high: '75 000–130 000 ₽', discuss: 'обсудим', default: 'от 45 000 ₽' },
+      segment: { low: 'от 30 000 ₽', mid: '40 000–70 000 ₽', high: '70 000–120 000 ₽', discuss: 'обсудим', default: 'от 40 000 ₽' },
+      package: { low: 'от 20 000 ₽', mid: '35 000–65 000 ₽', high: '65 000–120 000 ₽', discuss: 'обсудим', default: 'от 35 000 ₽' },
+      other:   { default: 'обсудим на созвоне' }
     };
 
     const times = {
-      quiz:       { low: '1–2 недели', mid: '2–3 недели', high: '3–5 недель', discuss: '2–4 недели', default: '2–3 недели' },
-      calculator: { low: '1 неделя', mid: '1–2 недели', high: '2–4 недели', discuss: '1–3 недели', default: '1–2 недели' },
-      site:       { low: '1 неделя', mid: '1–2 недели', high: '2–4 недели', discuss: '1–3 недели', default: '1–2 недели' },
-      other:      { default: 'обсудим' }
+      leads:   { low: '1–2 недели', mid: '2–3 недели', high: '3–5 недель', discuss: '2–4 недели', default: '2–3 недели' },
+      price:   { low: '3–5 дней',   mid: '1–2 недели', high: '2–4 недели', discuss: '1–3 недели', default: '1–2 недели' },
+      consult: { low: '2–3 недели', mid: '3–4 недели', high: '4–6 недель', discuss: '3–5 недель', default: '3–4 недели' },
+      segment: { low: '1–2 недели', mid: '2–3 недели', high: '3–5 недель', discuss: '2–4 недели', default: '2–3 недели' },
+      package: { low: '3–5 дней',   mid: '1–2 недели', high: '2–4 недели', discuss: '1–3 недели', default: '1–2 недели' },
+      other:   { default: 'обсудим' }
     };
 
     const t = prices[type] || prices.other;
@@ -781,7 +814,8 @@
       `Привет! Заполнил бриф на сайте. Вот мои ответы:`,
       ``,
       `👤 Имя: ${data.name}`,
-      `📌 Проект: ${est.typeLabel}`,
+      `🎯 Задача: ${goalLabels[data.type] || data.type}`,
+      `🛠 Подходит: ${est.typeLabel}`,
       `🏢 Ниша: ${data.niche || 'расскажу на созвоне'}`,
       `👥 Аудитория: ${data.audience || 'расскажу на созвоне'}`,
       `📥 Заявки: ${leadsMap[data.leads] || '—'}`,
