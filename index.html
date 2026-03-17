@@ -557,7 +557,14 @@
     /* ===== CONTACT ===== */
     #contact { background: var(--bg-0); }
     .contact-manifest { text-align: center; font-size: 1rem; color: var(--text-1); max-width: 540px; margin: 0 auto 56px; line-height: 1.7; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 860px; margin: 0 auto; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 860px; margin: 0 auto; }
+    .contact-primary { display: contents; }
+    .contact-secondary { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .contact-secondary .contact-block { padding: 18px 20px; }
+    .contact-secondary h4 { margin-bottom: 8px; }
+    @media (max-width: 640px) {
+      .contact-secondary { grid-template-columns: 1fr; }
+    }
     .contact-form { display: flex; flex-direction: column; gap: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group label { font-size: 0.8rem; color: var(--text-2); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -1573,29 +1580,36 @@
       Три услуги — одна система. Сайт привлекает → приложение удерживает → AI-агент обрабатывает. Если есть хотя бы одна задача — начнём с неё.
     </p>
     <div class="contact-grid reveal">
-      <div class="contact-block" style="background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(0,212,255,0.08)); border-color: rgba(99,102,241,0.3);">
-        <h4 style="color: var(--text-0);">Заполнить бриф</h4>
-        <p style="color:var(--text-1); font-size:0.875rem; margin-bottom:16px;">Ответь на 7 вопросов — получи предварительную оценку проекта за 2 минуты</p>
-        <a href="brief.html" class="btn btn-gradient" style="width:100%; justify-content:center; padding:12px 20px; font-size:0.9rem;">Начать бриф →</a>
+
+      <!-- ПЕРВИЧНЫЕ ДЕЙСТВИЯ: бриф + звонок — одинаковые по размеру, на одном уровне -->
+      <div class="contact-block" style="background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(0,212,255,0.08)); border-color: rgba(99,102,241,0.3); display:flex; flex-direction:column;">
+        <h4 style="color:var(--text-0);">Заполнить бриф</h4>
+        <p style="color:var(--text-1); font-size:0.875rem; margin-bottom:auto; padding-bottom:20px;">Ответь на 7 вопросов — получи предварительную оценку за 2 минуты</p>
+        <a href="brief.html" class="btn btn-gradient" style="width:100%; justify-content:center; padding:13px 20px; font-size:0.9rem;">Начать бриф →</a>
       </div>
-      <div class="contact-block">
-        <h4>Telegram</h4>
-        <p class="contact-value">@username</p>
-        <a href="https://t.me/username" class="btn btn-cyan" style="padding:10px 20px; font-size:0.875rem;">Написать в Telegram →</a>
-        <div class="status-badge">
-          <div class="status-dot"></div>
-          <span>Открыт для проектов · Следующий слот: март 2026</span>
+      <div class="contact-block" style="display:flex; flex-direction:column;">
+        <h4>Забронировать звонок</h4>
+        <p style="color:var(--text-1); font-size:0.875rem; margin-bottom:auto; padding-bottom:20px;">30 минут — разберём задачу, я предложу решение. Бесплатно, без обязательств.</p>
+        <a href="#" class="btn btn-secondary" style="width:100%; justify-content:center; padding:13px 20px; font-size:0.9rem;">Выбрать время → (Calendly)</a>
+      </div>
+
+      <!-- ВТОРИЧНЫЕ: телеграм + email — менее акцентированные -->
+      <div class="contact-secondary">
+        <div class="contact-block">
+          <h4>Telegram</h4>
+          <p class="contact-value" style="font-size:0.9rem;">@username</p>
+          <a href="https://t.me/username" class="btn btn-cyan" style="padding:8px 16px; font-size:0.8rem;">Написать →</a>
+          <div class="status-badge">
+            <div class="status-dot"></div>
+            <span>Открыт для проектов · март 2026</span>
+          </div>
+        </div>
+        <div class="contact-block">
+          <h4>Email</h4>
+          <p class="contact-value" style="font-size:0.9rem;">hello@alexdev.ru</p>
         </div>
       </div>
-      <div class="contact-block">
-        <h4>Забронировать звонок</h4>
-        <p style="color:var(--text-1); font-size:0.875rem; margin-bottom:14px;">30-минутный бриф — бесплатно, без обязательств</p>
-        <a href="#" class="btn btn-secondary" style="padding:10px 20px; font-size:0.875rem;">Выбрать время → (Calendly)</a>
-      </div>
-      <div class="contact-block">
-        <h4>Email</h4>
-        <p class="contact-value">hello@alexdev.ru</p>
-      </div>
+
     </div>
   </div>
 </section>
