@@ -547,6 +547,7 @@
         <h2 class="step-question">Когда нужно запустить?</h2>
         <p class="step-hint">Это поможет мне оценить загрузку и предложить реалистичный план.</p>
         <div class="cards-grid" id="cards-deadline">
+
           <button class="answer-card" data-value="urgent" onclick="selectCard(this,'deadline')">
             <span class="card-icon">🔥</span>
             <div class="card-text">
@@ -582,7 +583,52 @@
         </div>
         <div class="step-nav">
           <button class="btn-back" onclick="goPrev(7)">←</button>
-          <button class="btn-next" id="next-7" disabled onclick="showResult()">Получить оценку →</button>
+          <button class="btn-next" id="next-7" disabled onclick="goNext(7)">Далее →</button>
+        </div>
+      </div>
+
+      <!-- STEP 8: Время звонка -->
+      <div class="step" id="step-8">
+        <div class="step-label">// 08 — Созвон</div>
+        <h2 class="step-question">Когда удобно созвониться?</h2>
+        <p class="step-hint">Выберите удобное время — я напишу и предложу конкретный слот.</p>
+        <div class="cards-grid" id="cards-calltime">
+          <button class="answer-card" data-value="morning" onclick="selectCard(this,'calltime')">
+            <span class="card-icon">🌅</span>
+            <div class="card-text">
+              <div class="card-title">Утром</div>
+              <div class="card-sub">9:00 — 12:00</div>
+            </div>
+            <div class="card-check"></div>
+          </button>
+          <button class="answer-card" data-value="afternoon" onclick="selectCard(this,'calltime')">
+            <span class="card-icon">☀️</span>
+            <div class="card-text">
+              <div class="card-title">Днём</div>
+              <div class="card-sub">12:00 — 17:00</div>
+            </div>
+            <div class="card-check"></div>
+          </button>
+          <button class="answer-card" data-value="evening" onclick="selectCard(this,'calltime')">
+            <span class="card-icon">🌙</span>
+            <div class="card-text">
+              <div class="card-title">Вечером</div>
+              <div class="card-sub">17:00 — 21:00</div>
+            </div>
+            <div class="card-check"></div>
+          </button>
+          <button class="answer-card" data-value="anytime" onclick="selectCard(this,'calltime')">
+            <span class="card-icon">🕐</span>
+            <div class="card-text">
+              <div class="card-title">В любое время</div>
+              <div class="card-sub">Напишите — договоримся</div>
+            </div>
+            <div class="card-check"></div>
+          </button>
+        </div>
+        <div class="step-nav">
+          <button class="btn-back" onclick="goPrev(8)">←</button>
+          <button class="btn-next" id="next-8" disabled onclick="showResult()">Получить оценку →</button>
         </div>
       </div>
 
@@ -642,7 +688,7 @@
 </div>
 
 <script>
-  const TOTAL_STEPS = 7;
+  const TOTAL_STEPS = 8;
   const TG_USERNAME = 'Anastasiya_Murashkina';
 
   // Состояние
@@ -789,7 +835,7 @@
   // ── SHOW RESULT ──
   function showResult() {
     // Hide last step
-    document.getElementById('step-7').classList.remove('active');
+    document.getElementById('step-8').classList.remove('active');
     document.getElementById('progress-wrap').style.display = 'none';
 
     const est = calcEstimate();
@@ -820,8 +866,9 @@
       `👥 Аудитория: ${data.audience || 'расскажу на созвоне'}`,
       `📥 Заявки: ${leadsMap[data.leads] || '—'}`,
       `💰 Бюджет: ${budgetMap[data.budget] || '—'}`,
+      `🕐 Удобное время: ${data.calltime ? { morning:'Утром (9–12)', afternoon:'Днём (12–17)', evening:'Вечером (17–21)', anytime:'Любое время' }[data.calltime] : '—'}`,
       ``,
-      `Готова к созвону! Когда удобно?`
+      `Готова к созвону!`
     ].join('\n');
 
     const tgUrl = `https://t.me/${TG_USERNAME}?text=${encodeURIComponent(msg)}`;
@@ -839,6 +886,7 @@
     const leadsMapN = { telegram: 'Telegram', email: 'Email', crm: 'CRM / таблица', unknown: 'Не знаю' };
     const budgetMapN = { low: 'до 30 000 ₽', mid: '30 000–70 000 ₽', high: '70 000–150 000 ₽', top: 'от 150 000 ₽' };
     const deadlineMapN = { urgent: 'Срочно (1–2 нед)', month: 'В течение месяца', two: '1–2 месяца', flex: 'Гибко' };
+    const calltimeMapN = { morning: 'Утром (9–12)', afternoon: 'Днём (12–17)', evening: 'Вечером (17–21)', anytime: 'Любое время' };
     fetch('/api/notify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -851,6 +899,7 @@
         leads: leadsMapN[data.leads] || data.leads || '—',
         budget: budgetMapN[data.budget] || data.budget || '—',
         deadline: deadlineMapN[data.deadline] || data.deadline || '—',
+        calltime: calltimeMapN[data.calltime] || data.calltime || '—',
       }),
     }).catch(() => {}); // silent fail — not critical
   }

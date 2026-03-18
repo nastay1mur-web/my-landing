@@ -6,20 +6,22 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, contact, goal, niche, audience, leads, budget, deadline } = req.body || {};
+  const { name, contact, goal, niche, audience, leads, budget, deadline, calltime } = req.body || {};
 
   const token = process.env.TG_BOT_TOKEN;
   const chatId = process.env.TG_CHAT_ID;
 
   if (!token || !chatId) return res.status(500).json({ error: 'Bot not configured' });
 
-  const budgetMap = { low: 'до 30 000 ₽', mid: '30 000–70 000 ₽', high: '70 000–150 000 ₽', top: 'от 150 000 ₽', discuss: 'Обсудим' };
-  const leadsMap  = { telegram: 'Telegram', email: 'Email', crm: 'CRM / таблица', unknown: 'Не знаю' };
+  const budgetMap   = { low: 'до 30 000 ₽', mid: '30 000–70 000 ₽', high: '70 000–150 000 ₽', top: 'от 150 000 ₽', discuss: 'Обсудим' };
+  const leadsMap    = { telegram: 'Telegram', email: 'Email', crm: 'CRM / таблица', unknown: 'Не знаю' };
   const deadlineMap = { urgent: 'Срочно (1–2 нед)', month: 'В течение месяца', two: '1–2 месяца', flex: 'Гибко' };
+  const calltimeMap = { morning: 'Утром (9–12)', afternoon: 'Днём (12–17)', evening: 'Вечером (17–21)', anytime: 'Любое время' };
 
-  const budgetLabel   = budgetMap[budget]   || budget   || '—';
-  const leadsLabel    = leadsMap[leads]     || leads    || '—';
-  const deadlineLabel = deadlineMap[deadline] || deadline || '—';
+  const budgetLabel   = budgetMap[budget]     || budget    || '—';
+  const leadsLabel    = leadsMap[leads]       || leads     || '—';
+  const deadlineLabel = deadlineMap[deadline] || deadline  || '—';
+  const calltimeLabel = calltimeMap[calltime] || calltime  || '—';
 
   const text = [
     `📋 <b>Новый бриф!</b>`,
@@ -33,6 +35,7 @@ export default async function handler(req, res) {
     `📨 <b>Куда заявки:</b> ${leadsLabel}`,
     `💰 <b>Бюджет:</b> ${budgetLabel}`,
     `⏱ <b>Дедлайн:</b> ${deadlineLabel}`,
+    `🕐 <b>Время звонка:</b> ${calltimeLabel}`,
   ].join('\n');
 
   const sheetsUrl = process.env.SHEETS_URL;
@@ -47,7 +50,7 @@ export default async function handler(req, res) {
       sheetsUrl ? fetch(sheetsUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, contact, goal, niche, audience, leads: leadsLabel, budget: budgetLabel, deadline: deadlineLabel }),
+        body: JSON.stringify({ name, contact, goal, niche, audience, leads: leadsLabel, budget: budgetLabel, deadline: deadlineLabel, calltime: calltimeLabel }),
       }) : Promise.resolve(null),
     ]);
 
