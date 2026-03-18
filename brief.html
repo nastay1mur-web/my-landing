@@ -845,7 +845,7 @@
       body: JSON.stringify({
         name: data.name || '—',
         contact: data.contact || '—',
-        goal: data.goal || '—',
+        goal: goalLabels[data.type] || data.type || '—',
         niche: data.niche || '—',
         audience: data.audience || '—',
         leads: leadsMapN[data.leads] || data.leads || '—',
