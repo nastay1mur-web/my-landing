@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
   const budgetMap   = { low: 'до 30 000 ₽', mid: '30 000–70 000 ₽', high: '70 000–150 000 ₽', top: 'от 150 000 ₽', discuss: 'Обсудим' };
   const leadsMap    = { telegram: 'Telegram', email: 'Email', crm: 'CRM / таблица', unknown: 'Не знаю' };
-  const deadlineMap = { urgent: 'Срочно (1–2 нед)', month: 'В течение месяца', two: '1–2 месяца', flex: 'Гибко' };
+  const deadlineMap = { urgent: 'Срочно (1–2 нед)', month: 'В течение месяца', 'two-months': '1–2 месяца', flexible: 'Гибко' };
   const calltimeMap = { morning: 'Утром (9–12)', afternoon: 'Днём (12–17)', evening: 'Вечером (17–21)', anytime: 'Любое время' };
 
   const budgetLabel   = budgetMap[budget]     || budget    || '—';
