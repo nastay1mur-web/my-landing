@@ -13,6 +13,14 @@ export default async function handler(req, res) {
 
   if (!token || !chatId) return res.status(500).json({ error: 'Bot not configured' });
 
+  const budgetMap = { low: 'до 30 000 ₽', mid: '30 000–70 000 ₽', high: '70 000–150 000 ₽', top: 'от 150 000 ₽', discuss: 'Обсудим' };
+  const leadsMap  = { telegram: 'Telegram', email: 'Email', crm: 'CRM / таблица', unknown: 'Не знаю' };
+  const deadlineMap = { urgent: 'Срочно (1–2 нед)', month: 'В течение месяца', two: '1–2 месяца', flex: 'Гибко' };
+
+  const budgetLabel   = budgetMap[budget]   || budget   || '—';
+  const leadsLabel    = leadsMap[leads]     || leads    || '—';
+  const deadlineLabel = deadlineMap[deadline] || deadline || '—';
+
   const text = [
     `📋 <b>Новый бриф!</b>`,
     ``,
@@ -22,9 +30,9 @@ export default async function handler(req, res) {
     `🎯 <b>Задача:</b> ${goal || '—'}`,
     `🏢 <b>Ниша:</b> ${niche || 'не указана'}`,
     `👥 <b>Аудитория:</b> ${audience || 'не указана'}`,
-    `📨 <b>Куда заявки:</b> ${leads || '—'}`,
-    `💰 <b>Бюджет:</b> ${budget || '—'}`,
-    `⏱ <b>Дедлайн:</b> ${deadline || '—'}`,
+    `📨 <b>Куда заявки:</b> ${leadsLabel}`,
+    `💰 <b>Бюджет:</b> ${budgetLabel}`,
+    `⏱ <b>Дедлайн:</b> ${deadlineLabel}`,
   ].join('\n');
 
   const sheetsUrl = process.env.SHEETS_URL;
@@ -39,7 +47,7 @@ export default async function handler(req, res) {
       sheetsUrl ? fetch(sheetsUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, contact, goal, niche, audience, leads, budget, deadline }),
+        body: JSON.stringify({ name, contact, goal, niche, audience, leads: leadsLabel, budget: budgetLabel, deadline: deadlineLabel }),
       }) : Promise.resolve(null),
     ]);
 
