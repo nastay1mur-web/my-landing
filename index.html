@@ -617,11 +617,9 @@
     .footer-bottom { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
     .footer-copy { font-size: 0.8rem; color: var(--text-2); }
 
-    /* ===== TELEGRAM FAB ===== */
+    /* ===== TELEGRAM FAB (удалён) ===== */
     #tg-fab {
-      position: fixed; bottom: 32px; right: 32px; z-index: 200;
-      display: flex; align-items: center; gap: 10px;
-      background: var(--cyan); color: var(--bg-0);
+      display: none;
       padding: 14px 20px; border-radius: 100px;
       font-weight: 600; font-size: 0.875rem;
       box-shadow: 0 8px 32px rgba(0,212,255,0.4);
@@ -802,7 +800,7 @@
 
     /* ===== BACK TO TOP ===== */
     #back-to-top {
-      position: fixed; bottom: 96px; right: 28px; z-index: 200;
+      position: fixed; bottom: 32px; right: 32px; z-index: 200;
       width: 48px; height: 48px; border-radius: 50%;
       background: var(--bg-2); border: 1px solid var(--glass-border);
       display: flex; align-items: center; justify-content: center;
@@ -877,8 +875,7 @@
       .footer-bottom { flex-direction: column; align-items: flex-start; }
 
       /* FAB и Back-to-top */
-      #tg-fab { bottom: 20px; right: 16px; padding: 11px 14px; font-size: 0.8rem; gap: 7px; }
-      #back-to-top { bottom: 80px; right: 14px; left: auto; width: 44px; height: 44px; }
+      #back-to-top { bottom: 20px; right: 16px; width: 44px; height: 44px; }
 
       /* Процесс — вертикальный на мобильном */
       .process-step { padding-top: 0; padding-left: 44px; }
