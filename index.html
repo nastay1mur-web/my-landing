@@ -1806,26 +1806,6 @@
   });
 
 
-  // ===== CONTACT FORM =====
-  const form = document.getElementById('contact-form');
-  const formWrap = document.getElementById('contact-form-wrap');
-  const formSuccess = document.getElementById('form-success');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = form.querySelector('#name').value.trim();
-    const contact = form.querySelector('#contact-val').value.trim();
-    if (!name || !contact) {
-      alert('Пожалуйста, заполните обязательные поля.');
-      return;
-    }
-    const btn = form.querySelector('.form-submit');
-    btn.textContent = 'Отправляем...';
-    btn.disabled = true;
-    setTimeout(() => {
-      formWrap.style.display = 'none';
-      formSuccess.classList.add('visible');
-    }, 1200);
-  });
 
   // ===== AI DEMO CHAT =====
   const chatMessages = document.getElementById('chat-messages');
