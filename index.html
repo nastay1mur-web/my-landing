@@ -269,13 +269,14 @@
     /* ===== SERVICES ===== */
     #services { background: linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%); }
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .service-card { position: relative; overflow: hidden; }
+    .service-card { position: relative; overflow: hidden; aspect-ratio: 8 / 16; display: flex; flex-direction: column; }
     .service-card .card-icon {
       width: 52px; height: 52px; border-radius: var(--radius-sm);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem; margin-bottom: 24px;
     }
     .service-card h3 { margin-bottom: 12px; }
+    .service-card > p:first-of-type { color: var(--text-1); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.7; flex: 1; }
     .service-card p { color: var(--text-1); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.7; }
     .service-card .price {
       font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
@@ -692,7 +693,7 @@
       opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 0;
     }
     .glass-card:hover::before { opacity: 1; }
-    .glass-card > * { position: relative; z-index: 1; }
+    .glass-card > *:not(.card-glow) { position: relative; z-index: 1; }
     .glass-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(99,102,241,0.35);
@@ -1076,8 +1077,8 @@
   <div class="container">
     <div class="section-header reveal">
       <div class="tag-label">Работы</div>
-      <h2>Проекты, которые<br>уже работают</h2>
-      <p>Реальные кейсы с реальными результатами.</p>
+      <h2>Пилотные проекты</h2>
+      <p>Рабочие демо-версии, созданные для реальных задач бизнеса.<br>Каждый проект можно протестировать в деле.</p>
     </div>
     <div class="filter-row">
       <button class="filter-btn active" data-filter="all">Все</button>
@@ -1087,27 +1088,28 @@
     </div>
     <div class="projects-grid" id="projects-grid">
 
-      <div class="project-card reveal" data-type="site">
+      <div class="project-card reveal" data-type="site" onclick="window.open('https://techcorp-b2b.vercel.app','_blank')" style="cursor:pointer;">
         <div class="project-thumb">
-          <div class="project-thumb-inner" style="background: linear-gradient(135deg, #1a1a3a, #2d1b69);">
-            <span style="opacity:0.4; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace;">techcorp.ru</span>
+          <div class="project-thumb-inner" style="background-image: url('TechCorp.PNG'); background-size: cover; background-position: top center;">
           </div>
           <div class="project-overlay">
-            <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:0.1em; color:#fff;">СМОТРЕТЬ КЕЙС</span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:0.1em; color:#fff;">СМОТРЕТЬ ДЕМО</span>
           </div>
         </div>
         <div class="project-body">
-          <span class="project-type-tag type-site">Сайт</span>
-          <h3>TechCorp — корпоративный сайт</h3>
-          <p>Редизайн корпоративного сайта для B2B-компании. Новый дизайн, переработанная структура, SEO с нуля.</p>
+          <span class="project-type-tag type-site">Сайт · Демо</span>
+          <h3>TechCorp — корпоративный B2B сайт</h3>
+          <p>Демо корпоративного сайта для промышленной компании: услуги, кейсы, блог, команда. Полностью на React с анимациями.</p>
           <div class="project-results">
-            <span class="result-chip">+140% заявок</span>
-            <span class="result-chip">PageSpeed 94</span>
+            <span class="result-chip">6 страниц</span>
+            <span class="result-chip">Адаптивный</span>
+            <span class="result-chip">Анимации</span>
           </div>
           <div class="project-tech">
-            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">TypeScript</span>
             <span class="tech-tag">Tailwind</span>
-            <span class="tech-tag">Sanity</span>
+            <span class="tech-tag">Framer Motion</span>
           </div>
         </div>
       </div>
@@ -1184,6 +1186,33 @@
             <span class="tech-tag">React</span>
             <span class="tech-tag">Node.js</span>
             <span class="tech-tag">Stripe</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-4" data-type="ai" onclick="window.open('https://statura-shop-style.lovable.app','_blank')" style="cursor:pointer;">
+        <div class="project-thumb">
+          <div class="project-thumb-inner" style="background: linear-gradient(135deg, #1a0a2e, #2e1060);">
+            <span style="opacity:0.4; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace;">statura.shop</span>
+          </div>
+          <div class="project-overlay">
+            <a href="https://statura-shop-style.lovable.app" target="_blank" class="btn btn-primary" onclick="event.stopPropagation()">СМОТРЕТЬ ДЕМО</a>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-type-tag type-ai">Сайт + ИИ-агент</span>
+          <h3>Statura — интернет-магазин одежды</h3>
+          <p>Демо-магазин с каталогом, корзиной и встроенным ИИ-консультантом. Агент знает товары, цены и условия доставки.</p>
+          <div class="project-results">
+            <span class="result-chip">ИИ-консультант</span>
+            <span class="result-chip">6 категорий</span>
+            <span class="result-chip">Адаптивный</span>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Tailwind</span>
+            <span class="tech-tag">Supabase</span>
           </div>
         </div>
       </div>
